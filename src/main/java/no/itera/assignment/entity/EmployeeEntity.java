@@ -1,51 +1,64 @@
 package no.itera.assignment.entity;
 
+import no.itera.assignment.dto.EmployeeDto;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
 public class EmployeeEntity extends BaseEntity {
 
-    private String name;
-    private Integer age;
-    private String departmentName;
+    @OneToOne
+    private DepartmentEntity department;
+
+    @OneToOne
+    private EmploymentTypeEntity employmentType;
+
+    @OneToOne
+    private PersonEntity person;
+
     private Instant startDate;
     private Instant endDate;
 
     public EmployeeEntity() {
     }
 
-    public EmployeeEntity(String name, int age, String departmentName, Instant startDate, Instant endDate) {
-        this.name = name;
-        this.age = age;
-        this.departmentName = departmentName;
+    public EmployeeEntity(DepartmentEntity department, EmploymentTypeEntity employmentType, PersonEntity person, Instant startDate, Instant endDate) {
+        this.department = department;
+        this.employmentType = employmentType;
+        this.person = person;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public String getName() {
-        return name;
+    public EmployeeDto map() {
+        return new EmployeeDto(person.getName(), person.getAge(), department.getName(), startDate, endDate);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public DepartmentEntity getDepartment() {
+        return department;
     }
 
-    public int getAge() {
-        return age;
+    public void setDepartment(DepartmentEntity department) {
+        this.department = department;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public EmploymentTypeEntity getEmploymentType() {
+        return employmentType;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public void setEmploymentType(EmploymentTypeEntity employmentType) {
+        this.employmentType = employmentType;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public PersonEntity getPerson() {
+        return person;
+    }
+
+    public void setPerson(PersonEntity person) {
+        this.person = person;
     }
 
     public Instant getStartDate() {
@@ -68,21 +81,22 @@ public class EmployeeEntity extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof EmployeeEntity)) return false;
+        if (!super.equals(o)) return false;
         EmployeeEntity that = (EmployeeEntity) o;
-        return age == that.age && Objects.equals(name, that.name) && Objects.equals(departmentName, that.departmentName) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate);
+        return Objects.equals(department, that.department) && Objects.equals(employmentType, that.employmentType) && Objects.equals(person, that.person) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age, departmentName, startDate, endDate);
+        return Objects.hash(super.hashCode(), department, employmentType, person, startDate, endDate);
     }
 
     @Override
     public String toString() {
         return "EmployeeEntity{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", departmentName='" + departmentName + '\'' +
+                "department=" + department +
+                ", employmentType=" + employmentType +
+                ", person=" + person +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';

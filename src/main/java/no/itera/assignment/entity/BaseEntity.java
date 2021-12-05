@@ -5,7 +5,7 @@ import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
 /**
- * Super Entity abstract class
+ * Base Entity abstract class
  */
 @MappedSuperclass
 public abstract class BaseEntity {

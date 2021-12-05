@@ -1,14 +1,15 @@
 package no.itera.assignment.repository;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import no.itera.assignment.entity.EmployeeEntity;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class EmployeeRepository {
-    private static final Logger log = LoggerFactory.getLogger(EmployeeRepository.class);
+import java.util.List;
 
-    public void fetchEmployeeByPersonId(Integer personId) {
-        log.trace("retrieving employee with personId={}", personId);
-    }
+@Repository
+public interface EmployeeRepository extends CrudRepository<EmployeeEntity, Integer> {
+
+    List<EmployeeEntity> findAllActive(); //TODO todo
+
+    List<EmployeeEntity> findAllActiveByDepartmentId(Integer id); // TODO todo
 }

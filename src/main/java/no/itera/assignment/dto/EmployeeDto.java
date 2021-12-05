@@ -11,6 +11,17 @@ public class EmployeeDto {
     private Instant startDate;
     private Instant endDate;
 
+    public EmployeeDto() {
+    }
+
+    public EmployeeDto(String name, int age, String departmentName, Instant startDate, Instant endDate) {
+        this.name = name;
+        this.age = age;
+        this.departmentName = departmentName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public String getName() {
         return name;
     }

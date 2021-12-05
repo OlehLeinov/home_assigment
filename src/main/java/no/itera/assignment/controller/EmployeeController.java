@@ -29,12 +29,11 @@ public class EmployeeController {
 
     @GetMapping("/active")
     public List<EmployeeDto> fetchAllActiveEmployees() {
-        return List.of();
+        return employeeService.fetchAllActiveEmployees();
     }
 
     @GetMapping("/active/by-department")
     public Map<String, List<EmployeeDto>> fetchActiveEmployeesByDepartment() {
-        return Map.of();
+        return employeeService.fetchActiveEmployeesByDepartment();
     }
-
 }
