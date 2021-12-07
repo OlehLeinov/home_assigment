@@ -1,22 +1,34 @@
 package no.itera.assignment.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class PersonEntity extends BaseEntity {
+public class PersonEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     @Column(nullable = false, length = 50)
     private String name;
+    @Column(nullable = false)
     private Integer age;
 
     public PersonEntity() {
     }
 
-    public PersonEntity(String name, Integer age) {
+    public PersonEntity(Integer id, String name, Integer age) {
+        this.id = id;
         this.name = name;
         this.age = age;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -39,20 +51,20 @@ public class PersonEntity extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof PersonEntity)) return false;
-        if (!super.equals(o)) return false;
         PersonEntity that = (PersonEntity) o;
-        return Objects.equals(name, that.name) && Objects.equals(age, that.age);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(age, that.age);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, age);
+        return Objects.hash(id, name, age);
     }
 
     @Override
     public String toString() {
         return "PersonEntity{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
     }

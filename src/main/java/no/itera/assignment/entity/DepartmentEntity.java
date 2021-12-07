@@ -1,20 +1,31 @@
 package no.itera.assignment.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class DepartmentEntity extends BaseEntity {
+public class DepartmentEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     @Column(nullable = false, length = 50)
     private String name;
 
     public DepartmentEntity() {
     }
 
-    public DepartmentEntity(String name) {
+    public DepartmentEntity(Integer id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,20 +40,20 @@ public class DepartmentEntity extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof DepartmentEntity)) return false;
-        if (!super.equals(o)) return false;
         DepartmentEntity that = (DepartmentEntity) o;
-        return Objects.equals(name, that.name);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name);
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
         return "DepartmentEntity{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

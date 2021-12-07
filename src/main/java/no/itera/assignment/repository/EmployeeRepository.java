@@ -9,7 +9,5 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends CrudRepository<EmployeeEntity, Integer> {
 
-    List<EmployeeEntity> findAllActive(); //TODO todo
-
-    List<EmployeeEntity> findAllActiveByDepartmentId(Integer id); // TODO todo
+    List<EmployeeEntity> findByEndDateIsNull();
 }
