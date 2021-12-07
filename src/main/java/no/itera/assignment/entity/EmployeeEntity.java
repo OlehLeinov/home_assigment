@@ -1,7 +1,5 @@
 package no.itera.assignment.entity;
 
-import no.itera.assignment.dto.EmployeeDto;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
@@ -29,10 +27,6 @@ public class EmployeeEntity {
         this.employmentType = employmentType;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    public EmployeeDto map() {
-        return new EmployeeDto(id.getPerson().getName(), id.getPerson().getAge(), id.getDepartment().getName(), startDate, endDate);
     }
 
     public EmployeeCPK getId() {

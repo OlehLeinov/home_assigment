@@ -31,7 +31,7 @@ public class EmployeeService {
      * @implNote personId is unique
      */
     public EmployeeDto fetchEmployeeByPersonId(Integer personId) {
-        return employeeRepository.findByIdPersonId(personId).map(EmployeeEntity::map).orElse(null);
+        return employeeRepository.findByIdPersonId(personId).map(this::map).orElse(null);
     }
 
     /**
@@ -41,7 +41,7 @@ public class EmployeeService {
      * @implNote active employee has end date set to null
      */
     public List<EmployeeDto> fetchAllActiveEmployees() {
-        return employeeRepository.findByEndDateIsNull().stream().map(EmployeeEntity::map).collect(Collectors.toList());
+        return employeeRepository.findByEndDateIsNull().stream().map(this::map).collect(Collectors.toList());
     }
 
     /**
@@ -51,6 +51,14 @@ public class EmployeeService {
      * @implNote active employee has end date set to null
      */
     public Map<String, List<EmployeeDto>> fetchActiveEmployeesByDepartment() {
-        return employeeRepository.findByEndDateIsNull().stream().map(EmployeeEntity::map).collect(Collectors.groupingBy(EmployeeDto::getDepartmentName));
+        return employeeRepository.findByEndDateIsNull().stream().map(this::map).collect(Collectors.groupingBy(EmployeeDto::getDepartmentName));
+    }
+
+    private EmployeeDto map(EmployeeEntity entity) {
+        return new EmployeeDto(entity.getId().getPerson().getName(),
+                entity.getId().getPerson().getAge(),
+                entity.getId().getDepartment().getName(),
+                entity.getStartDate(),
+                entity.getEndDate());
     }
 }
