@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller for Employee Entity
+ */
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -22,16 +25,28 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    /**
+     *
+     *
+     * @param personId
+     * @return
+     */
     @GetMapping("/{personId}")
     public EmployeeDto fetchEmployeeByPersonId(@PathVariable Integer personId) {
         return employeeService.fetchEmployeeByPersonId(personId);
     }
 
+    /**
+     * @return
+     */
     @GetMapping("/active")
     public List<EmployeeDto> fetchAllActiveEmployees() {
         return employeeService.fetchAllActiveEmployees();
     }
 
+    /**
+     * @return
+     */
     @GetMapping("/active/by-department")
     public Map<String, List<EmployeeDto>> fetchActiveEmployeesByDepartment() {
         return employeeService.fetchActiveEmployeesByDepartment();

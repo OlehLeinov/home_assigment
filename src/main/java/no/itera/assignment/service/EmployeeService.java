@@ -21,7 +21,7 @@ public class EmployeeService {
     }
 
     public EmployeeDto fetchEmployeeByPersonId(Integer personId) {
-        return employeeRepository.findById(personId).map(EmployeeEntity::map).orElse(null);
+        return employeeRepository.findByIdPersonId(personId).map(EmployeeEntity::map).orElse(null);
     }
 
     public List<EmployeeDto> fetchAllActiveEmployees() {

@@ -1,26 +1,32 @@
 package no.itera.assignment.service;
 
+import no.itera.assignment.entity.EmployeeEntity;
+import no.itera.assignment.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureTestDatabase
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 class EmployeeServiceTest {
+    private EmployeeService sut;
+    @Mock
+    private EmployeeRepository employeeRepository;
 
     @BeforeEach
     void setUp() {
+        sut = new EmployeeService(employeeRepository);
     }
 
     @Test
     void fetchEmployeeByPersonId() {
+        EmployeeEntity employee = new EmployeeEntity();
+        when(employeeRepository.findByIdPersonId(1)).thenReturn(Optional.ofNullable(employee));
+        sut.fetchEmployeeByPersonId(1);
+        verify(employeeRepository).findByIdPersonId(1);
     }
 
     @Test

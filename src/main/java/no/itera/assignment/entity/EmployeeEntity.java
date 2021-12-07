@@ -2,13 +2,12 @@ package no.itera.assignment.entity;
 
 import no.itera.assignment.dto.EmployeeDto;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
+@Table(name = "employee")
 public class EmployeeEntity {
 
     @EmbeddedId
@@ -17,7 +16,9 @@ public class EmployeeEntity {
     @OneToOne
     private EmploymentTypeEntity employmentType;
 
+    @Column(name = "start_date", nullable = false)
     private Instant startDate;
+    @Column(name = "end_date")
     private Instant endDate;
 
     public EmployeeEntity() {
