@@ -4,13 +4,16 @@ import no.itera.assignment.dto.EmployeeDto;
 import no.itera.assignment.entity.EmployeeEntity;
 import no.itera.assignment.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * REST API controller for {@link EmployeeEntity}
@@ -34,7 +37,11 @@ public class EmployeeController {
      */
     @GetMapping("/{personId}")
     public EmployeeDto fetchEmployeeByPersonId(@PathVariable Integer personId) {
-        return employeeService.fetchEmployeeByPersonId(personId);
+        try {
+            return employeeService.fetchEmployeeByPersonId(personId);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 /**
@@ -28,10 +29,12 @@ public class EmployeeService {
      *
      * @param personId id of the person
      * @return {@link EmployeeDto}
+     * @throws NoSuchElementException employee not found
      * @implNote personId is unique
      */
     public EmployeeDto fetchEmployeeByPersonId(Integer personId) {
-        return employeeRepository.findByIdPersonId(personId).map(this::map).orElse(null);
+        return employeeRepository.findByIdPersonId(personId).map(this::map)
+                .orElseThrow(() -> new NoSuchElementException("Employee with person ID=" + personId + " doesn't exist."));
     }
 
     /**

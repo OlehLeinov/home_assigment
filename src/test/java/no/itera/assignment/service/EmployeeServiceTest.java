@@ -16,8 +16,10 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -74,6 +76,22 @@ class EmployeeServiceTest {
         assertEquals(person1.getAge(), result.getAge());
         assertEquals(department1.getName(), result.getDepartmentName());
         assertEquals(employee1.getStartDate(), result.getStartDate());
+    }
+
+    @DisplayName("given no person should retrieve NoSuchElementException")
+    @Test
+    void testGivenNoPersonWhenFetchingEmployeeByPersonId() {
+        when(employeeRepository.findByIdPersonId(1)).thenReturn(Optional.empty());
+
+        try {
+            EmployeeDto result = sut.fetchEmployeeByPersonId(1);
+            fail("Expected NoSuchElementException");
+        } catch (Exception e) {
+            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals("Employee with person ID=1 doesn't exist.", e.getMessage());
+        }
+
+        verify(employeeRepository).findByIdPersonId(1);
     }
 
     @DisplayName("should retrieve all active employees")

@@ -50,4 +50,9 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$['Human resources'].length()", is(1)));
     }
 
+    @DisplayName("given no person should retrieve status code not found 404")
+    @Test
+    public void testGivenNoPersonWhenRetrievingOfSingleEmployee() throws Exception {
+        mockMvc.perform(get("/employee/123")).andExpect(status().isNotFound());
+    }
 }
