@@ -50,7 +50,7 @@ public class EmployeeController {
     }
 
     /**
-     * Finds all active employees and group them by department
+     * Finds all active employees and group them by department name
      * <p>
      * (active employee has empty end date)
      *
